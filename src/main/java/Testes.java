@@ -1,11 +1,17 @@
 import Singleton.SingletonEager;
 import Singleton.SingletonLazy;
 import Singleton.SingletonLazyHolder;
+import Strategy.ComportamentoAgressivo;
+import Strategy.ComportamentoDefensivo;
+import Strategy.ComportamentoNormal;
+import Strategy.Robo;
 
 public class Testes {
 
     public static void main(String[] args) {
         testarSingletons();
+        System.out.println("\n=========================================================\n");
+        testarStrategy();
     }
 
     /**
@@ -44,4 +50,38 @@ public class Testes {
         lazyHolder = SingletonLazyHolder.getInstance();
         System.out.println(lazyHolder);
     }
+
+
+    /**
+     * Testa o padrão Strategy com três comportamentos:
+     * normal, defensivo e agressivo.
+     * <p>
+     * O padrão Strategy permite que o comportamento de um objeto seja alterado
+     * dinamicamente em tempo de execução, sem a necessidade de modificar sua classe.
+     * Neste teste, temos um objeto {@code Robo} que executa o método {@code mover()},
+     * e seu comportamento pode ser trocado em tempo real usando diferentes estratégias
+     * que implementam a interface {@code Comportamento}.
+     * </p>
+     */
+    public static void testarStrategy() {
+        // Criando um robô com comportamento normal
+        Robo robo = new Robo(new ComportamentoNormal());
+
+        System.out.println("Movimento normal:");
+        robo.mover();
+        robo.mover();
+
+        // Mudando para comportamento defensivo
+        robo.setComportamento(new ComportamentoDefensivo());
+        System.out.println("\nMovimento defensivo:");
+        robo.mover();
+
+        // Mudando para comportamento agressivo
+        robo.setComportamento(new ComportamentoAgressivo());
+        System.out.println("\nMovimento agressivo:");
+        robo.mover();
+        robo.mover();
+        robo.mover();
+    }
+
 }
