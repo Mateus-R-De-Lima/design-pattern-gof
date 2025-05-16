@@ -1,3 +1,4 @@
+import Facade.Facade;
 import Singleton.SingletonEager;
 import Singleton.SingletonLazy;
 import Singleton.SingletonLazyHolder;
@@ -12,6 +13,9 @@ public class Testes {
         testarSingletons();
         System.out.println("\n=========================================================\n");
         testarStrategy();
+        System.out.println("\n=========================================================\n");
+        testarFacade();
+
     }
 
     /**
@@ -83,5 +87,29 @@ public class Testes {
         robo.mover();
         robo.mover();
     }
+
+    /**
+     * Classe cliente que utiliza a Facade para executar uma operação de alto nível
+     * sem precisar conhecer ou lidar diretamente com os subsistemas internos.
+     *
+     * Esse método simula um cenário real onde um cliente é migrado para o sistema.
+     * A lógica interna (busca de endereço e gravação no CRM) está abstraída pela Facade.
+     */
+    public static void testarFacade(){
+
+        // Cria uma instância da fachada, que é a interface simplificada do sistema
+        Facade  facade = new Facade();
+
+        /**
+         * Executa o processo de migração de cliente:
+         * - O cliente final (este código de teste) só precisa fornecer o nome e o CEP.
+         * - A Facade cuida de chamar os subsistemas necessários:
+         *      - Consulta cidade e estado pela API de CEP
+         *      - Registra o cliente no sistema de CRM
+         */
+        facade.migrarCliente("Mateus","03066065");
+    }
+
+
 
 }
